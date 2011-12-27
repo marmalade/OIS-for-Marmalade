@@ -1,13 +1,13 @@
-#ifndef OIS_MarmaladeAccelerometer_H
-#define OIS_MarmaladeAccelerometer_H
+#ifndef OIS_MarmaladeCompass_H
+#define OIS_MarmaladeCompass_H
 
 namespace OIS
 {
-	class MarmaladeAccelerometer : public JoyStick
+	class MarmaladeCompass : public JoyStick
 	{
 	public:
-		MarmaladeAccelerometer(InputManager* creator, bool buffered);
-		~MarmaladeAccelerometer();
+		MarmaladeCompass(InputManager* creator, bool buffered);
+		~MarmaladeCompass();
 		
 		/** @copydoc Object::setBuffered */
 		virtual void setBuffered(bool buffered);
@@ -26,4 +26,4 @@ namespace OIS
 	};
 }
 
-#endif	// OIS_MarmaladeAccelerometer_H
+#endif	// OIS_MarmaladeCompass_H

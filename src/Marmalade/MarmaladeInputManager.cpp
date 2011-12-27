@@ -46,10 +46,10 @@ MarmaladeInputManager::~MarmaladeInputManager()
 void MarmaladeInputManager::_initialize( ParamList &paramList )
 {
 	// Check support to input types
-	bMultitouchSupported = (s3ePointerGetInt(S3E_POINTER_MULTI_TOUCH_AVAILABLE) != S3E_FALSE);
-	bAccelerometerSupported = (s3eAccelerometerGetInt(S3E_ACCELEROMETER_AVAILABLE) != S3E_FALSE);
-	bCompassSupported = (s3eCompassAvailable() != S3E_FALSE);
-	bTouchPadSupported = (s3eTouchpadAvailable() != S3E_FALSE);
+	bMultitouchSupported = MarmaladeMultiTouch::_isSupported();
+	bAccelerometerSupported = MarmaladeAccelerometer::_isSupported();
+	bCompassSupported = MarmaladeCompass::_isSupported();
+	bTouchPadSupported = MarmaladeTouchPad::_isSupported();
 	
 	// Parse whatever extra settings were sent to us
 	_parseConfigSettings( paramList );	

@@ -21,28 +21,28 @@
  3. This notice may not be removed or altered from any source distribution.
  */
  
-#include "Marmalade/MarmaladeAccelerometer.h"
+#include "Marmalade/MarmaladeCompass.h"
 #include "Marmalade/MarmaladeInputManager.h"
 
 using namespace OIS;
 
-MarmaladeAccelerometer::MarmaladeAccelerometer(InputManager* creator, bool buffered)
+MarmaladeCompass::MarmaladeCompass(InputManager* creator, bool buffered)
 	: JoyStick(creator->inputSystemName(), buffered, 0, creator)
 {
 	MarmaladeInputManager* man = static_cast<MarmaladeInputManager*>(creator);
-	man->_setAccelerometerUsed(true);
+	man->_setCompassUsed(true);
 }
 
-MarmaladeAccelerometer::~MarmaladeAccelerometer()
+MarmaladeCompass::~MarmaladeCompass()
 {
 	// Stop accelerometer
-	s3eAccelerometerStop();
+	s3eCompassStop();
 	
 	MarmaladeInputManager *man = static_cast<MarmaladeInputManager*>(mCreator);
-    man->_setAccelerometerUsed(false);
+    man->_setCompassUsed(false);
 }
 
-void MarmaladeAccelerometer::_initialize()
+void MarmaladeCompass::_initialize()
 {
 	// Clear old joy state
     mState.mVectors.resize(1);
@@ -50,29 +50,34 @@ void MarmaladeAccelerometer::_initialize()
 	mTempState.clear();
 	
 	// Start accelerometer
-	if(	s3eAccelerometerStart() != S3E_RESULT_SUCCESS )
+	if(	s3eCompassStart() != S3E_RESULT_SUCCESS )
 	{
 	
 	}
 }
 
-void MarmaladeAccelerometer::setBuffered(bool buffered)
+void MarmaladeCompass::setBuffered(bool buffered)
 {
 	mBuffered = buffered;
 }
 
-void MarmaladeAccelerometer::capture()
+void MarmaladeCompass::capture()
 {
 	mState.clear();
-    mState.mVectors[0].x = s3eAccelerometerGetX();
-	mState.mVectors[0].y = s3eAccelerometerGetY();
-	mState.mVectors[0].z = s3eAccelerometerGetZ();
 	
-	if(mListener && mBuffered)
-        mListener->axisMoved(JoyStickEvent(this, mState), 0);
+	s3eCompassHeading heading = { 0, 0, 0 };
+	if(s3eCompassGetHeading(&heading) == S3E_RESULT_SUCCESS)
+	{
+		mState.mVectors[0].x = heading.m_X;
+		mState.mVectors[0].y = heading.m_Y;
+		mState.mVectors[0].z = heading.m_Z;
+		
+		if(mListener && mBuffered)
+			mListener->axisMoved(JoyStickEvent(this, mState), 0);
+	}
 }
 
-bool MarmaladeAccelerometer::_isSupported()
+bool MarmaladeCompass::_isSupported()
 {
-	return (s3eAccelerometerGetInt(S3E_ACCELEROMETER_AVAILABLE) != S3E_FALSE);
+	return (s3eCompassAvailable() != S3E_FALSE);
 }
