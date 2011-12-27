@@ -1,0 +1,75 @@
+display_name "OIS"
+
+defines
+{
+	
+}
+
+options
+{
+	enable-exceptions
+}
+
+packages
+{
+	
+}
+
+subprojects
+{
+	
+}
+
+includepaths
+{
+	"includes"
+}
+
+files
+{
+	["include"]
+	("includes")
+	OIS.h
+	OISConfig.h
+	OISEffect.h
+	OISEvents.h
+	OISException.h
+	OISFactoryCreator.h
+	OISForceFeedback.h
+	OISInputManager.h
+	OISInterface.h
+	OISJoyStick.h
+	OISKeyboard.h
+	OISMouse.h
+	OISMultiTouch.h
+	OISObject.h
+	OISPrereqs.h
+	
+	["include", "Marmalade"]
+	("includes/Marmalade")
+	MarmaladePrereqs.h
+	MarmaladeInputManager.h
+	MarmaladeMultiTouch.h
+	MarmaladeCompass.h
+	MarmaladeTouchPad.h
+	MarmaladeAccelerometer.h
+	
+	["src"]
+	("src")
+	OISEffect.cpp
+	OISException.cpp
+	OISForceFeedback.cpp
+	OISInputManager.cpp
+	OISJoyStick.cpp
+	OISKeyboard.cpp
+	OISObject.cpp
+	
+	["src", "Marmalade"]
+	("src/Marmalade")
+	MarmaladeInputManager.cpp
+	MarmaladeMultiTouch.cpp
+	MarmaladeCompass.cpp
+	MarmaladeTouchPad.cpp
+	MarmaladeAccelerometer.cpp
+	
+}
